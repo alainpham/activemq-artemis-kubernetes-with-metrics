@@ -2,7 +2,7 @@
 
 Aims at fixing the apache activemq artemis cloud container image to add metrics.
 
-Extending https://artemiscloud.io/ images to add ùetrics plugin for Prometheus monitoring of Artemis.
+Extending https://artemiscloud.io/ images to add metrics plugin for Prometheus monitoring of Artemis.
 
 ```
 cd docker
