@@ -1,4 +1,4 @@
-# apache activemq artemis cloud container image with metrics
+# Apache Activemq Artemis Cloud Container image with Metrics
 
 Aims at fixing the apache activemq artemis cloud container image to add metrics.
 
