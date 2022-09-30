@@ -1,20 +1,13 @@
-# Apache Activemq Artemis Cloud Container image with Metrics
+# Apache ActiveMQ Artemis for multiple architectures
 
-Aims at fixing the apache activemq artemis cloud container image to add metrics.
+These are prebuilt images of Apache ActiveMQ Artemis to run on amd64 and on older armv7 architecture like the older Raspberry PI 2.
 
-Extending https://artemiscloud.io/ images to add metrics plugin for Prometheus monitoring of Artemis.
+Current Artemis Version :  **2.26.0**
 
-```
-cd docker
- 
-docker build . -t artemis:1.0.5
+## Quickstart
 
 ```
-
-Run prebuilt image
-
-```
-docker run --rm -e AMQ_USER=admin -e AMQ_PASSWORD=admin  -e AMQ_ENABLE_METRICS_PLUGIN=true -p 8161:8161 --name artemis-cloud alainpham/artemis:1.0.5
+docker run --rm -e JAVA_APPEND_ARGS="-Xms64M -Xmx128M" --name artemis-scratch alainpham/artemis:2.26.0
 ```
 
 Go to 
@@ -26,21 +19,46 @@ http://localhost:8161/metrics/
 ```
 cd docker-from-scratch
 
-docker build . -t artemis:2.26.0-linux-amd64
+export ARTEMIS_VERSION=2.26.0
 
-docker build . -t artemis:2.26.0-linux-arm-v7
+docker build . -t artemis:${ARTEMIS_VERSION}-linux-amd64
+
+docker build . -t artemis:${ARTEMIS_VERSION}-linux-arm-v7
+
+docker tag artemis:${ARTEMIS_VERSION}-linux-amd64 registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-amd64
+docker tag artemis:${ARTEMIS_VERSION}-linux-amd64 alainpham/artemis:${ARTEMIS_VERSION}-linux-amd64
+
+docker push registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-amd64
+docker push alainpham/artemis:${ARTEMIS_VERSION}-linux-amd64
+
+docker tag artemis:${ARTEMIS_VERSION}-linux-arm-v7 registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+docker tag artemis:${ARTEMIS_VERSION}-linux-arm-v7 alainpham/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+
+docker push registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+docker push alainpham/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+
+
+
+export DOCKER_CLI_EXPERIMENTAL=enabled
+
+docker manifest create registry.awon.lan/artemis:${ARTEMIS_VERSION} \
+   -a registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-amd64 \
+   -a registry.awon.lan/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+
+docker manifest push -p registry.awon.lan/artemis:${ARTEMIS_VERSION}
+
+docker manifest create alainpham/artemis:${ARTEMIS_VERSION} \
+   -a alainpham/artemis:${ARTEMIS_VERSION}-linux-amd64 \
+   -a alainpham/artemis:${ARTEMIS_VERSION}-linux-arm-v7
+
+docker manifest push -p alainpham/artemis:${ARTEMIS_VERSION}
 
 ```
 
 ```
-docker run --rm artemis:2.26.0-linux-amd64
-docker run --rm artemis:2.26.0-linux-arm-v7
-```
+docker run --rm  artemis:${ARTEMIS_VERSION}-linux-amd64
+docker run --rm  artemis:${ARTEMIS_VERSION}-linux-arm-v7
 
-```
-
-docker manifest create registry.awon.lan/artemis:2.26.0 \
-   -a registry.awon.lan/artemis:2.26.0-linux-amd64 \
-   -a registry.awon.lan/artemis:2.26.0-linux-arm-v7
-docker manifest push
+docker run --rm -e JAVA_APPEND_ARGS="-Xms64M -Xmx128M" artemis:${ARTEMIS_VERSION}-linux-amd64
+docker run --rm -e JAVA_APPEND_ARGS="-Xms64M -Xmx128M" artemis:${ARTEMIS_VERSION}-linux-arm-v7
 ```
