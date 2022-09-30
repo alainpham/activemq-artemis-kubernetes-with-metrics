@@ -26,6 +26,21 @@ http://localhost:8161/metrics/
 ```
 cd docker-from-scratch
 
-docker build . -t artemis:2.26.0
+docker build . -t artemis:2.26.0-linux-amd64
 
+docker build . -t artemis:2.26.0-linux-arm-v7
+
+```
+
+```
+docker run --rm artemis:2.26.0-linux-amd64
+docker run --rm artemis:2.26.0-linux-arm-v7
+```
+
+```
+
+docker manifest create registry.awon.lan/artemis:2.26.0 \
+   -a registry.awon.lan/artemis:2.26.0-linux-amd64 \
+   -a registry.awon.lan/artemis:2.26.0-linux-arm-v7
+docker manifest push
 ```

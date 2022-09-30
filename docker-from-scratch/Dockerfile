@@ -18,7 +18,7 @@ RUN /opt/amq/bin/artemis create /home/appuser/broker --user admin --password pas
 ADD bootstrap.xml  /home/appuser/broker/etc/bootstrap.xml
 ADD broker.xml  /home/appuser/broker/etc/broker.xml
 ADD jolokia-access.xml  /home/appuser/broker/etc/jolokia-access.xml
-
+ADD artemis.profile /home/appuser/broker/etc/artemis.profile
 
 FROM eclipse-temurin:11.0.16.1_1-jre 
 RUN useradd -u 1000 appuser && mkdir -p /home/appuser/ && chown 1000:1000 /home/appuser
