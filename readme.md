@@ -20,3 +20,12 @@ docker run --rm -e AMQ_USER=admin -e AMQ_PASSWORD=admin  -e AMQ_ENABLE_METRICS_P
 Go to 
 
 http://localhost:8161/metrics/
+
+## From scratch (for custom multi arch builds)
+
+```
+cd docker-from-scratch
+
+docker build . -t artemis:2.26.0
+
+```
