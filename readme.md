@@ -2,12 +2,12 @@
 
 These are prebuilt images of Apache ActiveMQ Artemis to run on amd64 and on older armv7 architecture like the older Raspberry PI 2.
 
-Current Artemis Version :  **2.26.0**
+Current Artemis Version :  **2.28.0**
 
 ## Quickstart
 
 ```
-docker run --rm -e JAVA_APPEND_ARGS="-Xms64M -Xmx128M" --name artemis-scratch alainpham/artemis:2.26.0
+docker run --rm -e JAVA_APPEND_ARGS="-Xms64M -Xmx128M" --name artemis-scratch alainpham/artemis:2.28.0
 ```
 
 Go to 
@@ -19,7 +19,7 @@ http://localhost:8161/metrics/
 ```
 cd docker-from-scratch
 
-export ARTEMIS_VERSION=2.26.0
+export ARTEMIS_VERSION=2.28.0
 
 docker build . -t artemis:${ARTEMIS_VERSION}-linux-amd64
 

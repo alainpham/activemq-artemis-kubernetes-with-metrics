@@ -1,5 +1,5 @@
-FROM eclipse-temurin:11.0.16.1_1-jre AS builder
-ARG artemis_version=2.26.0
+FROM eclipse-temurin:11.0.18_10-jre AS builder
+ARG artemis_version=2.28.0
 
 USER root
 
@@ -20,7 +20,7 @@ ADD broker.xml  /home/appuser/broker/etc/broker.xml
 ADD jolokia-access.xml  /home/appuser/broker/etc/jolokia-access.xml
 ADD artemis.profile /home/appuser/broker/etc/artemis.profile
 
-FROM eclipse-temurin:11.0.16.1_1-jre 
+FROM eclipse-temurin:11.0.18_10-jre
 RUN useradd -u 1000 appuser && mkdir -p /home/appuser/ && chown 1000:1000 /home/appuser
 
 COPY --from=builder /opt/amq  /opt/amq
